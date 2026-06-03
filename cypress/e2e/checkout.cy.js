@@ -1,24 +1,17 @@
-
 import { faker } from '@faker-js/faker';
 
-const telas = [
-    { dispositivo: 'macbook-13', preset: 'macbook-13' },
-    { dispositivo: 'iphone-6', preset: 'iphone-6' },
-    { dispositivo: 'samsung-s10', preset: 'samsung-s10' }
-]
+const { dispositivos } = require('../support/constants/dispositivos');
 
-telas.forEach((tela) => {
+dispositivos.forEach((dispositivo) => {
 
-    describe(`Testes de checkout [${tela.dispositivo}]`, () => {
+    describe(`Testes de checkout [${dispositivo.nome}]`, () => {
 
         beforeEach(() => {
-            cy.viewport(tela.preset)
-            cy.visit('/checkout-one');
+            cy.iniciar_sessao(dispositivo.preset, '/checkout-one')
         })
 
 
         describe(`Casos de sucesso`, () => {
-
 
             it("Salvar endereço com sucesso", () => {
                 cy.get('#fname').type(faker.person.firstName())
