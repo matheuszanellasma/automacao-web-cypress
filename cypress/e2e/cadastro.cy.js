@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker';
-
-const { dispositivos } = require('../support/constants/dispositivos');
+import cadastro_usuario_page from '../support/pages/cadastro_usuario_page';
+import { dispositivos } from '../support/constants/dispositivos';
 
 dispositivos.forEach((dispositivo) => {
 
@@ -11,17 +11,13 @@ dispositivos.forEach((dispositivo) => {
             cy.iniciar_sessao(dispositivo.preset, '/register')
         })
 
-        
-        it("Cadastro com credenciais válidas", () => {
 
-            cy.get('#user').type(faker.person.fullName())
-            cy.get('#email').type(faker.internet.email())
-            cy.get('#password').type(faker.internet.password({ length: 6 }))
-            cy.get('#btnRegister').click()
-            cy.get('#swal2-title')
-                .should('be.visible')
-                .and('contain.text', 'Cadastro realizado')
-            cy.get('.swal2-confirm.swal2-styled').click()
+        it("Cadastro com credenciais válidas", () => {
+            cadastro_usuario_page.preencher_nome()
+            cadastro_usuario_page.preencher_email()
+            cadastro_usuario_page.preencher_senha()
+            cadastro_usuario_page.cadastrar()
+            cadastro_usuario_page.confirmar_sucesso('Cadastro realizado')
             cy.url()
                 .should('equal', 'https://www.automationpratice.com.br/my-account')
         })
@@ -37,17 +33,13 @@ dispositivos.forEach((dispositivo) => {
                 { nome: faker.person.fullName(), email: 'teste@', senha: faker.internet.password({ length: 6 }), teste: 'email sem @', seletor: '#email', msg_erro: 'O campo e-mail deve ser prenchido corretamente' }
             ]
 
-            cenarios_cadastro.forEach((cenario, index) => {
-                it(' Cadastro mal sucedido com ' + cenario.teste, () => {
-
-                    cy.get('#user').type(cenario.nome)
-                    cy.get('#email').type(cenario.email)
-                    cy.get('#password').type(cenario.senha)
-                    cy.get('#btnRegister').click()
-
-                    cy.get(cenario.seletor).next()
-                        .should('be.visible')
-                        .and('contain.text', cenario.msg_erro)
+            cenarios_cadastro.forEach((cenario) => {
+                it(`Cadastro mal sucedido com ${cenario.teste}`, () => {
+                    cadastro_usuario_page.preencher_nome(cenario.nome)
+                    cadastro_usuario_page.preencher_email(cenario.email)
+                    cadastro_usuario_page.preencher_senha(cenario.senha)
+                    cadastro_usuario_page.cadastrar()
+                    cadastro_usuario_page.validar_msg_erro(cenario.seletor, cenario.msg_erro)
                 })
             })
         })

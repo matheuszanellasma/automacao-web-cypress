@@ -1,4 +1,4 @@
-import { faker } from '@faker-js/faker';
+import checkout_page from '../support/pages/checkout_page';
 
 const { dispositivos } = require('../support/constants/dispositivos');
 
@@ -10,58 +10,40 @@ dispositivos.forEach((dispositivo) => {
             cy.iniciar_sessao(dispositivo.preset, '/checkout-one')
         })
 
-
         describe(`Casos de sucesso`, () => {
-
             it("Salvar endereço com sucesso", () => {
-                cy.get('#fname').type(faker.person.firstName())
-                cy.get('#lname').type(faker.person.lastName())
-                cy.get('#cname').type(faker.company.name())
-                cy.get('#email').type(faker.internet.email())
-                cy.get('#country').select(faker.number.int({ min: 1, max: 2 }))
-                cy.get('#city').select(faker.number.int({ min: 1, max: 2 }))
-                cy.get('#zip').type(faker.location.zipCode('#####-###'))
-                cy.get('#faddress').type(faker.location.streetAddress(true))
-                cy.get('#messages').type(faker.lorem.sentence())
+                checkout_page.preencher_primeiro_nome();
+                checkout_page.preencher_sobrenome();
+                checkout_page.preencher_nome_empresa();
+                checkout_page.preencher_email();
+                checkout_page.selecionar_pais();
+                checkout_page.selecionar_cidade();
+                checkout_page.preencher_cep();
+                checkout_page.preencher_endereco();
+                checkout_page.preencher_mensagem();
 
-                cy.get('.checkout-area-bg > .theme-btn-one').click()
-                cy.get('.check-out-form > h3')
-                    .should("be.visible")
-                    .and('have.text', 'Billings Information registred with success!')
+                checkout_page.salvar_endereco()
+                checkout_page.confirmar_salvar_endereco(
+                    'Billings Information registred with success!'
+                )
             })
 
-
             const cenarios_checkout_sucesso = [
-                { payment: 'Direct Bank Transfer', seletor: '#headingOne > div > #html' },
-                { payment: 'Mobile Banking', seletor: '#headingTwo > div > #javascript' },
-                { payment: 'Paypal', seletor: '#headingThree > div > #css' }
+                { payment: 'Direct Bank Transfer', seletor: '#headingOne #html' },
+                { payment: 'Mobile Banking', seletor: '#headingTwo #javascript' },
+                { payment: 'Paypal', seletor: '#headingThree #css' }
             ]
 
             cenarios_checkout_sucesso.forEach((cenario) => {
-
                 it(`Sucesso com pagamento ${cenario.payment}`, () => {
-
-                    cy.get('#fname').type(faker.person.firstName())
-                    cy.get('#lname').type(faker.person.lastName())
-                    cy.get('#cname').type(faker.company.name())
-                    cy.get('#email').type(faker.internet.email())
-                    cy.get('#country').select(faker.number.int({ min: 1, max: 2 }))
-                    cy.get('#city').select(faker.number.int({ min: 1, max: 2 }))
-                    cy.get('#zip').type(faker.location.zipCode('#####-###'))
-                    cy.get('#faddress').type(faker.location.streetAddress(true))
-                    cy.get('#messages').type(faker.lorem.sentence())
-
-                    cy.get('.checkout-area-bg > .theme-btn-one').click()
-                    cy.get(cenario.seletor).check()
-                    cy.contains('button', 'Place Order').click()
-
-                    cy.get('.offer_modal_left > h2')
-                        .should('be.visible')
-                        .and('have.text', 'Order success!')
-
-                    cy.get('.offer_modal_left > h3')
-                        .should('be.visible')
-                        .and('have.text', 'Congrats! Your order was created with sucess!')
+                    checkout_page.preencher_formulario_completo()
+                    checkout_page.salvar_endereco()
+                    checkout_page.selecionar_pagamento(cenario.seletor)
+                    checkout_page.realizar_checkout()
+                    checkout_page.confirmar_sucesso_checkout(
+                        'Order success!',
+                        'Congrats! Your order was created with sucess!'
+                    )
                 })
             })
 
@@ -70,49 +52,48 @@ dispositivos.forEach((dispositivo) => {
         describe(`Validação de campos`, () => {
 
             const cenarios_vazios = [
-                { campo: 'first name', seletor: '#fname', msg: 'O campo First Name deve ser prenchido' },
-                { campo: 'last name', seletor: '#lname', msg: 'O campo Last Name deve ser prenchido' },
-                { campo: 'company name', seletor: '#cname', msg: 'O campo Company deve ser prenchido' },
-                { campo: 'email address', seletor: '#email', msg: 'O campo E-mail deve ser prenchido ou é inválido' },
-                { campo: 'country', seletor: '#country', msg: 'O campo Country deve ser prenchido' },
-                { campo: 'state/city', seletor: '#city', msg: 'O campo City deve ser prenchido' },
-                { campo: 'zip code', seletor: '#zip', msg: 'O campo Zip Code deve ser prenchido' },
-                { campo: 'full address', seletor: '#faddress', msg: 'O campo Address deve ser prenchido' },
-                { campo: 'additional notes', seletor: '#messages', msg: 'O campo Additional Notes deve ser prenchido' }
+                { campo: 'first name', seletor: '#fname', msg: 'O campo First Name deve ser prenchido', tipo: 'input' },
+                { campo: 'last name', seletor: '#lname', msg: 'O campo Last Name deve ser prenchido', tipo: 'input' },
+                { campo: 'company name', seletor: '#cname', msg: 'O campo Company deve ser prenchido', tipo: 'input' },
+                { campo: 'email address', seletor: '#email', msg: 'O campo E-mail deve ser prenchido ou é inválido', tipo: 'input' },
+                { campo: 'country', seletor: '#country', msg: 'O campo Country deve ser prenchido', tipo: 'select' },
+                { campo: 'city', seletor: '#city', msg: 'O campo City deve ser prenchido', tipo: 'select' },
+                { campo: 'zip code', seletor: '#zip', msg: 'O campo Zip Code deve ser prenchido', tipo: 'input' },
+                { campo: 'full address', seletor: '#faddress', msg: 'O campo Address deve ser prenchido', tipo: 'input' },
+                { campo: 'additional notes', seletor: '#messages', msg: 'O campo Additional Notes deve ser prenchido', tipo: 'input' }
             ]
 
             cenarios_vazios.forEach((cenario) => {
                 it(`Validação do campo ${cenario.campo} vazio`, () => {
-                    cy.get('.checkout-area-bg > .theme-btn-one').click()
-                    cy.get(cenario.seletor).next()
-                        .should('be.visible')
-                        .and('contain.text', cenario.msg)
+                    if (cenario.tipo === 'select') {
+                        checkout_page.preencher_formulario_completo({ [cenario.campo]: '' })
+                    } else {
+                        checkout_page.preencher_formulario_completo()
+                        cy.get(cenario.seletor).clear()
+                    }
+                    checkout_page.salvar_endereco()
+                    checkout_page.validar_msg_erro(cenario.seletor, cenario.msg)
                 })
             })
 
             const cenarios_email = [
-                { campo: 'email sem @', seletor: '#email', email: 'testedominio.com', msg: 'O campo E-mail deve ser prenchido ou é inválido' },
-                { campo: 'email sem domínio', seletor: '#email', email: 'teste@', msg: 'O campo E-mail deve ser prenchido ou é inválido' }
+                { campo: 'email sem @', email: 'testedominio.com' },
+                { campo: 'email sem domínio', email: 'teste@' }
             ]
 
             cenarios_email.forEach((cenario) => {
                 it(`Validação do campo ${cenario.campo}`, () => {
-                    cy.get('#email').type(cenario.email)
-                    cy.get('.checkout-area-bg > .theme-btn-one').click()
-                    cy.get(cenario.seletor).next()
-                        .should('be.visible')
-                        .and('contain.text', cenario.msg)
+                    checkout_page.preencher_formulario_completo({ email: cenario.email })
+                    checkout_page.salvar_endereco()
+                    checkout_page.validar_msg_erro('#email', 'O campo E-mail deve ser prenchido ou é inválido')
                 })
             })
         })
 
         describe(`Teste de ordem sem endereço salvo`, () => {
             it("Falha ao gerar a ordem sem endereço salvo", () => {
-                cy.contains('button', 'Place Order').click()
-
-                cy.get('.payment_method').find('#errorMessageFirstName')
-                    .should('be.visible')
-                    .and('have.text', 'Preencha os dados de pagamento!')
+                checkout_page.realizar_checkout()
+                checkout_page.validar_msg_erro_checkout('Preencha os dados de pagamento!')
             })
         })
     })
