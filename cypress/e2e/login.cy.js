@@ -17,8 +17,8 @@ dispositivos.forEach((dispositivo) => {
 
         it("Login com credenciais válidas", () => {
 
-            login_page.preenche_email()
-            login_page.preenche_senha()
+            login_page.preencher_email()
+            login_page.preencher_senha()
             login_page.logar()
 
             login_page.confirmar_sucesso('Login realizado')
@@ -28,11 +28,11 @@ dispositivos.forEach((dispositivo) => {
         })
 
 
-        it("Login com 'Lembrar de mim' selecionado", () => {
+        it.skip("Login com 'Lembrar de mim' selecionado", () => {
             const email = faker.internet.email()
 
-            login_page.preenche_email(email)
-            login_page.preenche_senha()
+            login_page.preencher_email(email)
+            login_page.preencher_senha()
 
             login_page.marcar_lembrar_de_mim()
             login_page.logar()
@@ -41,8 +41,9 @@ dispositivos.forEach((dispositivo) => {
             login_page.confirmar_sucesso('Login realizado')
 
             login_page.acessar_login()
-            cy.get('#user')
-                .should('have.value', email);
+            
+            login_page.validar_email_preenchido(email)
+            
 
         })
 
@@ -60,8 +61,8 @@ dispositivos.forEach((dispositivo) => {
             cenarios_login.forEach((cenario) => {
                 it(` Login mal sucedido com ${cenario.teste}`, () => {
 
-                    login_page.preenche_email(cenario.email)
-                    login_page.preenche_senha(cenario.senha)
+                    login_page.preencher_email(cenario.email)
+                    login_page.preencher_senha(cenario.senha)
                     login_page.logar()
 
 

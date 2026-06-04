@@ -28,3 +28,9 @@ Cypress.Commands.add('iniciar_sessao', (dispositvo, url )=>{
     cy.viewport(dispositvo)
     cy.visit(url)
 })
+
+Cypress.Commands.add('preencher_campo', (seletor, texto )=>{
+    cy.get(seletor)
+      .should('not.be.disabled')
+      .type(texto);
+})
