@@ -3,12 +3,8 @@ Markdown
 
 Este repositório contém o projeto de automação de testes focado na interface web do e-commerce de teste **QaZando Shop**. O objetivo deste projeto é garantir a qualidade, estabilidade e o funcionamento correto do cabeçalho e rodapé da página e das páginas de Login, Cadastro e Checkout
 
-🔗 **Endereço web:** [QaZando Shop] (https://www.automationpratice.com.br/)
-
 💡 **O Plano de Testes Completo (com descrição de casos de testes estruturados e em gherkin e relatório de bugs) pode ser acessado aqui:** 
 👉 [Plano de Testes Detalhado - QaZando Shop](docs/plano-de-testes-e-bugs.docx)
----
-
 ---
 
 ## 💻 Tecnologias Utilizadas
@@ -35,11 +31,12 @@ Como parte da estratégia de testes, foram levantados cenários divididos por co
 * **CT2:** Validação de redirecionamento - botão “Login”
 * **CT3:** Validação de redirecionamento - botão “Cadastro”
 * **CT5:** Validação de redirecionamento – links dos menus dropdown
-* **CT6:** Validação do botão de lupa (pesquisa)
-* **CT7:** Alteração do cabeçalho quando o usuário está logado
-* **CT8:** Validação de redirecionamento – link “Acompanhe seu pedido”
-* **CT9:** Validação dos links do menu do usuário (Dashboard / Meus Pedidos)
-* **CT10:** Deslogar do sistema usando o botão Logout do menu de usuário
+* **CT6:** Validação de redirecionamento – links dos menus dropdown
+* **CT7:** Validação do botão de lupa (pesquisa)
+* **CT8:** Alteração do cabeçalho quando o usuário está logado
+* **CT9:** Validação de redirecionamento – link “Acompanhe seu pedido”
+* **CT10:** Validação dos links do menu do usuário (Dashboard / Meus Pedidos)
+* **CT11:** Deslogar do sistema usando o botão Logout do menu de usuário
 
 ### 🔹 História 2 – Rodapé (Footer)
 * **CT1:** Validação de redirecionamento - botão “QaZando Shop”
