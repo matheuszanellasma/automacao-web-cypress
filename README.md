@@ -4,7 +4,7 @@ Markdown
 Este repositório contém o projeto de automação de testes focado na interface web do e-commerce de teste **QaZando Shop**. O objetivo deste projeto é garantir a qualidade, estabilidade e o funcionamento correto do cabeçalho e rodapé da página e das páginas de Login, Cadastro e Checkout
 
 💡 **O Plano de Testes Completo (com descrição de casos de testes estruturados e em gherkin e relatório de bugs) pode ser acessado aqui:** 
-👉 [Plano de Testes Detalhado - QaZando Shop](docs/plano-de-testes-e-bugs.docx)
+👉 [Plano de Testes Detalhado - QaZando Shop](docs/plano-de-testes-e-bugs-web.docx)
 ---
 
 ## 💻 Tecnologias Utilizadas
