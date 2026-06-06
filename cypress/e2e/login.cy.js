@@ -14,15 +14,11 @@ dispositivos.forEach((dispositivo) => {
             cy.iniciar_sessao(dispositivo.preset, '/login')
         })
 
-
         it("Login com credenciais válidas", () => {
-
             login_page.preencher_email()
             login_page.preencher_senha()
             login_page.logar()
-
             login_page.confirmar_sucesso('Login realizado')
-
             cy.url()
                 .should('equal', 'https://www.automationpratice.com.br/my-account')
         })
@@ -30,21 +26,13 @@ dispositivos.forEach((dispositivo) => {
 
         it.skip("Login com 'Lembrar de mim' selecionado", () => {
             const email = faker.internet.email()
-
             login_page.preencher_email(email)
             login_page.preencher_senha()
-
             login_page.marcar_lembrar_de_mim()
             login_page.logar()
-
-
             login_page.confirmar_sucesso('Login realizado')
-
             login_page.acessar_login()
-            
             login_page.validar_email_preenchido(email)
-            
-
         })
 
 
@@ -60,12 +48,9 @@ dispositivos.forEach((dispositivo) => {
 
             cenarios_login.forEach((cenario) => {
                 it(` Login mal sucedido com ${cenario.teste}`, () => {
-
                     login_page.preencher_email(cenario.email)
                     login_page.preencher_senha(cenario.senha)
                     login_page.logar()
-
-
                     login_page.validar_msg_erro(cenario.msg_erro)
                 })
             })
@@ -74,7 +59,6 @@ dispositivos.forEach((dispositivo) => {
 
         describe(`Testes de seguranca da senha na tela`, () => {
             it('Teste de mascaramento da senha', () => {
-
                 cy.get('#password')
                     .should('have.attr', 'type', 'password')
             })
@@ -83,12 +67,9 @@ dispositivos.forEach((dispositivo) => {
         describe(`Testes de redirecionamento de links `, () => {
             it('Teste de redirecionamento do link "ainda não tem conta?"', () => {
                 login_page.ir_para_cadastro()
-
                 cy.url()
                     .should('equal', 'https://www.automationpratice.com.br/register')
-
                 cadastro_page.validar_tela_cadastro('Cadastro de usuário')
-
             })
         })
     })

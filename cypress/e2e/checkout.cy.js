@@ -21,7 +21,6 @@ dispositivos.forEach((dispositivo) => {
                 checkout_page.preencher_cep();
                 checkout_page.preencher_endereco();
                 checkout_page.preencher_mensagem();
-
                 checkout_page.salvar_endereco()
                 checkout_page.confirmar_salvar_endereco(
                     'Billings Information registred with success!'
