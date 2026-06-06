@@ -6,11 +6,9 @@ dispositivos.forEach((dispositivo) => {
 
     describe(`Testes de cadastro [${dispositivo.nome}]`, () => {
 
-
         beforeEach(() => {
             cy.iniciar_sessao(dispositivo.preset, '/register')
         })
-
 
         it("Cadastro com credenciais válidas", () => {
             cadastro_usuario_page.preencher_nome()
@@ -46,7 +44,7 @@ dispositivos.forEach((dispositivo) => {
 
         describe(`Testes de seguranca da senha `, () => {
             it('Teste de mascaramento da senha', () => {
-                cy.get('#password')
+                cy.get('#passsword')
                     .should('have.attr', 'type', 'password')
             })
         })

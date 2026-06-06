@@ -45,7 +45,6 @@ dispositivos.forEach((dispositivo) => {
                     )
                 })
             })
-
         })
 
         describe(`Validação de campos`, () => {
