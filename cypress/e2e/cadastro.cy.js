@@ -44,7 +44,7 @@ dispositivos.forEach((dispositivo) => {
 
         describe(`Testes de seguranca da senha `, () => {
             it('Teste de mascaramento da senha', () => {
-                cy.get('#passsword')
+                cy.get('#password')
                     .should('have.attr', 'type', 'password')
             })
         })
