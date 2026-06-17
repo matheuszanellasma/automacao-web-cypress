@@ -1,55 +1,67 @@
 import { faker } from "@faker-js/faker";
 
+const ROTA_CADASTRO = '/register';
+
+const seletores = {
+  tituloCadastro: '.account_form > h3',
+  campoNome: '#user',
+  campoEmail: '#email',
+  campoSenha: '#password',
+  botaoRegistrar: '#btnRegister',
+  tituloSucesso: '#swal2-title',
+  botaoConfirmarSucesso: '.swal2-confirm.swal2-styled'
+};
+
 export default {
-    validar_tela_cadastro(textoEsperado) {
-        cy.get('.account_form > h3')
-            .should('be.visible')
-            .and('include.text', textoEsperado);
-    },
+  validar_tela_cadastro(textoEsperado) { 
+    cy.get(seletores.tituloCadastro)
+      .should('be.visible')
+      .and('include.text', textoEsperado); 
+  },
 
-    acessar_cadastro() {
-        cy.visit('/register')
-    },
+  acessar_cadastro() { 
+    cy.visit(ROTA_CADASTRO); 
+  },
 
-    preencher_nome(nome = faker.person.fullName()) {
-        cy.preencher_campo('#user', nome)
-    },
+  preencher_nome(nome = faker.person.fullName()) { 
+    cy.preencher_campo(seletores.campoNome, nome); 
+  },
 
-    preencher_email(email = faker.internet.email()) {
-        cy.preencher_campo('#email', email)
-    },
+  preencher_email(email = faker.internet.email()) { 
+    cy.preencher_campo(seletores.campoEmail, email); 
+  },
 
-    preencher_senha(senha = faker.internet.password({ length: 6 })) {
-        cy.preencher_campo('#password', senha)
-    },
+  preencher_senha(senha = faker.internet.password({ length: 6 })) { 
+    cy.preencher_campo(seletores.campoSenha, senha); 
+  },
 
-    cadastrar() {
-        cy.get('#btnRegister').click();
-    },
+  cadastrar() { 
+    cy.get(seletores.botaoRegistrar).click(); 
+  },
 
-    validar_msg_erro(seletor, mensagem) {
-        cy.get(seletor).next()
-            .should('be.visible')
-            .and('contain.text', mensagem)
-    },
+  validar_msg_erro(seletor, mensagem) { 
+    // Mantém o seletor dinâmico que vem do teste para validar o erro de cada campo
+    cy.get(seletor).next()
+      .should('be.visible')
+      .and('contain.text', mensagem); 
+  },
 
-    confirmar_sucesso(mensagem) {
-        cy.get('#swal2-title')
-            .should('be.visible')
-            .and('contain.text', mensagem);
-        cy.get('.swal2-confirm.swal2-styled').click();
-    },
+  confirmar_sucesso(mensagem) { 
+    cy.get(seletores.tituloSucesso)
+      .should('be.visible')
+      .and('contain.text', mensagem); 
+    cy.get(seletores.botaoConfirmarSucesso).click(); 
+  },
 
-    cadastrar_usuario({
-        nome = faker.person.fullName(),
-        email = faker.internet.email(),
-        senha = faker.internet.password({ length: 6 })
-    } = {}) {
-        cy.visit('/register');
-        cy.preencher_campo('#user', nome);
-        cy.preencher_campo('#email', email);
-        cy.preencher_campo('#password', senha);
-        cy.get('#btnRegister').click();
-    }
-
-}
+  cadastrar_usuario({ 
+    nome = faker.person.fullName(), 
+    email = faker.internet.email(), 
+    senha = faker.internet.password({ length: 6 }) 
+  } = {}) {
+    this.acessar_cadastro();
+    cy.preencher_campo(seletores.campoNome, nome);
+    cy.preencher_campo(seletores.campoEmail, email);
+    cy.preencher_campo(seletores.campoSenha, senha);
+    this.cadastrar();
+  }
+};
