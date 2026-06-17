@@ -3,7 +3,11 @@ Markdown
 
 Este repositório contém o projeto de automação de testes focado na interface web do e-commerce de teste **QaZando Shop**. O objetivo deste projeto é garantir a qualidade, estabilidade e o funcionamento correto do cabeçalho e rodapé da página e das páginas de Login, Cadastro e Checkout
 
-💡 **O Plano de Testes Completo (com descrição de casos de testes estruturados e em gherkin e relatório de bugs) pode ser acessado aqui:** 
+Este projeto utiliza o **Cypress Cloud** para monitoramento e gravação das execuções dos testes de automação de forma pública.
+
+📊 **Painel de Execuções (Dashboard):** [Clique aqui para visualizar o Cypress Cloud](https://cloud.cypress.io/projects/isrrue/runs?branches=%5B%5D&committers=%5B%5D&flaky=%5B%5D&page=1&status=%5B%5D&tags=%5B%5D&tagsMatch=ANY&timeRange=%7B%22startDate%22%3A%222025-06-17%22%2C%22endDate%22%3A%222026-06-17%22%2C%22id%22%3A%22LAST_12_MONTHS%22%7D)
+
+💡 **O Plano de Testes Completo (com descrição de casos de testes estruturados/gherkin e relatório de bugs) pode ser acessado aqui:** 
 👉 [Plano de Testes Detalhado - QaZando Shop](docs/plano-de-testes-e-bugs-web.docx)
 ---
 
