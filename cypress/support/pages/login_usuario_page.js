@@ -13,55 +13,47 @@ const seletores = {
   linkCriarConta: '#createAccount'
 };
 
-// 🛠️ SEU OBJETO LITERAL PRINCIPAL
 export default {
-  acessar_login() { 
-    cy.visit(ROTA_LOGIN); 
+  acessar_login() {
+    cy.visit(ROTA_LOGIN);
   },
 
-  preencher_email(email = faker.internet.email()) { 
-    cy.preencher_campo(seletores.campoEmail, email); 
+  preencher_email(email = faker.internet.email()) {
+    cy.preencher_campo(seletores.campoEmail, email);
   },
 
-  preencher_senha(senha = faker.internet.password({ length: 6 })) { 
-    cy.preencher_campo(seletores.campoSenha, senha); 
+  preencher_senha(senha = faker.internet.password({ length: 6 })) {
+    cy.preencher_campo(seletores.campoSenha, senha);
   },
 
-  logar() { 
-    cy.get(seletores.botaoLogar).click(); 
+  logar() {
+    cy.get(seletores.botaoLogar).click();
   },
 
-  marcar_lembrar_de_mim() { 
-    cy.get(seletores.checkboxLembrar).check(); 
+  marcar_lembrar_de_mim() {
+    cy.get(seletores.checkboxLembrar).check();
   },
 
-  confirmar_sucesso(mensagem) { 
-    cy.get(seletores.tituloSucesso)
-      .should('be.visible')
-      .and('contain.text', mensagem); 
-    cy.get(seletores.botaoConfirmarSucesso).click(); 
+  ir_para_cadastro() {
+    cy.get(seletores.linkCriarConta).click();
   },
 
-  validar_msg_erro(mensagem) { 
-    cy.get(seletores.alertaErro)
-      .should('be.visible')
-      .and('contain.text', mensagem); 
+  obter_email_preenchido() {
+    return cy.get(seletores.campoEmail)
   },
 
-  ir_para_cadastro() { 
-    cy.get(seletores.linkCriarConta).click(); 
+  obter_alerta_sucesso() {
+    return cy.get(seletores.tituloSucesso);
   },
 
-  validar_email_preenchido(emailEsperado) { 
-    cy.get(seletores.campoEmail)
-      .should('be.visible')
-      .and('have.value', emailEsperado); 
+  obter_msg_erro() {
+    return cy.get('.invalid_input')
   },
 
-  logar_usuario(email = faker.internet.email(), senha = faker.internet.password()) { 
+  logar_usuario({ email = faker.internet.email(), senha = faker.internet.password() } = {}) {
     cy.visit(ROTA_LOGIN);
     cy.preencher_campo(seletores.campoEmail, email);
     cy.preencher_campo(seletores.campoSenha, senha);
-    cy.get(seletores.botaoLogar).click(); 
+    cy.get(seletores.botaoLogar).click();
   }
 };

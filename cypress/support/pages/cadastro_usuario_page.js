@@ -12,56 +12,55 @@ const seletores = {
   botaoConfirmarSucesso: '.swal2-confirm.swal2-styled'
 };
 
+const seletor_campo = {
+  nome: seletores.campoNome,
+  email: seletores.campoEmail,
+  senha: seletores.campoSenha
+};
+
 export default {
-  validar_tela_cadastro(textoEsperado) { 
-    cy.get(seletores.tituloCadastro)
-      .should('be.visible')
-      .and('include.text', textoEsperado); 
-  },
 
   acessar_cadastro() { 
-    cy.visit(ROTA_CADASTRO); 
+    cy.visit(ROTA_CADASTRO);
   },
 
-  preencher_nome(nome = faker.person.fullName()) { 
-    cy.preencher_campo(seletores.campoNome, nome); 
+  preencher_nome(nome = faker.person.fullName()) {
+    cy.preencher_campo(seletores.campoNome, nome);
   },
 
-  preencher_email(email = faker.internet.email()) { 
-    cy.preencher_campo(seletores.campoEmail, email); 
+  preencher_email(email = faker.internet.email()) {
+    cy.preencher_campo(seletores.campoEmail, email);
   },
 
-  preencher_senha(senha = faker.internet.password({ length: 6 })) { 
-    cy.preencher_campo(seletores.campoSenha, senha); 
+  preencher_senha(senha = faker.internet.password({ length: 6 })) {
+    cy.preencher_campo(seletores.campoSenha, senha);
   },
 
   cadastrar() { 
-    cy.get(seletores.botaoRegistrar).click(); 
+    cy.get(seletores.botaoRegistrar).click();
   },
 
-  validar_msg_erro(seletor, mensagem) { 
-    // Mantém o seletor dinâmico que vem do teste para validar o erro de cada campo
-    cy.get(seletor).next()
-      .should('be.visible')
-      .and('contain.text', mensagem); 
+  obter_alerta_sucesso() {
+    return cy.get(seletores.tituloSucesso);
   },
 
-  confirmar_sucesso(mensagem) { 
-    cy.get(seletores.tituloSucesso)
-      .should('be.visible')
-      .and('contain.text', mensagem); 
-    cy.get(seletores.botaoConfirmarSucesso).click(); 
+  obter_erro_do_campo(nomeCampo) {
+    return cy.get(seletor_campo[nomeCampo]).next();
   },
 
-  cadastrar_usuario({ 
-    nome = faker.person.fullName(), 
-    email = faker.internet.email(), 
-    senha = faker.internet.password({ length: 6 }) 
+  obter_titulo_cadastro() {
+    return cy.get(seletores.tituloCadastro);
+  },
+
+  cadastrar_usuario({
+    nome = faker.person.fullName(),
+    email = faker.internet.email(),
+    senha = faker.internet.password({ length: 6 })
   } = {}) {
-    this.acessar_cadastro();
+    cy.visit(ROTA_CADASTRO);
     cy.preencher_campo(seletores.campoNome, nome);
     cy.preencher_campo(seletores.campoEmail, email);
     cy.preencher_campo(seletores.campoSenha, senha);
-    this.cadastrar();
+    cy.get(seletores.botaoRegistrar).click();
   }
 };
