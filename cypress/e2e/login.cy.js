@@ -15,10 +15,13 @@ dispositivos.forEach((dispositivo) => {
         })
 
         it("Login com credenciais válidas", () => {
-            login_page.preencher_email()
-            login_page.preencher_senha()
-            login_page.logar()
-            login_page.confirmar_sucesso('Login realizado')
+
+            login_page.logar_usuario()
+
+            login_page.obter_alerta_sucesso()
+                .should('be.visible')
+                .and('contain.text', 'Login realizado');
+
             cy.url()
                 .should('equal', 'https://www.automationpratice.com.br/my-account')
         })
@@ -30,9 +33,16 @@ dispositivos.forEach((dispositivo) => {
             login_page.preencher_senha()
             login_page.marcar_lembrar_de_mim()
             login_page.logar()
-            login_page.confirmar_sucesso('Login realizado')
+
+            login_page.obter_alerta_sucesso()
+                .should('be.visible')
+                .and('contain.text', 'Login realizado');
+
             login_page.acessar_login()
-            login_page.validar_email_preenchido(email)
+
+            login_page.obter_email_preenchido()
+                .should('be.visible')
+                .and('have.value', email);
         })
 
 
@@ -48,10 +58,11 @@ dispositivos.forEach((dispositivo) => {
 
             cenarios_login.forEach((cenario) => {
                 it(` Login mal sucedido com ${cenario.teste}`, () => {
-                    login_page.preencher_email(cenario.email)
-                    login_page.preencher_senha(cenario.senha)
-                    login_page.logar()
-                    login_page.validar_msg_erro(cenario.msg_erro)
+                    login_page.logar_usuario({ email: cenario.email, senha: cenario.senha })
+
+                    login_page.obter_msg_erro()
+                        .should('be.visible')
+                        .and('have.text', cenario.msg_erro)
                 })
             })
         })
@@ -67,9 +78,12 @@ dispositivos.forEach((dispositivo) => {
         describe(`Testes de redirecionamento de links `, () => {
             it('Teste de redirecionamento do link "ainda não tem conta?"', () => {
                 login_page.ir_para_cadastro()
+
                 cy.url()
                     .should('equal', 'https://www.automationpratice.com.br/register')
-                cadastro_page.validar_tela_cadastro('Cadastro de usuário')
+
+                cadastro_page.obter_titulo_cadastro()
+                    .should('have.text', 'Cadastro de usuário')
             })
         })
     })

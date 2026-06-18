@@ -15,119 +15,132 @@ const seletores = {
   tituloSucessoCheckout: '.offer_modal_left > h2',
   subtituloSucessoCheckout: '.offer_modal_left > h3',
   containerPagamento: '.payment_method',
-  erroFirstNameCheckout: '#errorMessageFirstName'
+  erroFirstNameCheckout: '#errorMessageFirstName',
+  botaoPlaceOrderTexto: 'Place Order'
+};
+
+const tipos_pagamento = {
+  'Direct Bank Transfer': '#headingOne #html',
+  'Mobile Banking': '#headingTwo #javascript',
+  'Paypal': '#headingThree #css'
+};
+
+const seletores_campos = {
+  'first name': seletores.campoPrimeiroNome,
+  'last name': seletores.campoSobrenome,
+  'company name': seletores.campoNomeEmpresa,
+  'email address': seletores.campoEmail,
+  'country': seletores.selectPais,
+  'city': seletores.selectCidade,
+  'zip code': seletores.campoCep,
+  'full address': seletores.campoEndereco,
+  'additional notes': seletores.campoMensagem
 };
 
 export default {
-  preencher_primeiro_nome(nome = faker.person.firstName()) { 
-    cy.preencher_campo(seletores.campoPrimeiroNome, nome); 
+  preencher_primeiro_nome(nome = faker.person.firstName()) {
+    cy.preencher_campo(seletores.campoPrimeiroNome, nome);
   },
 
-  preencher_sobrenome(sobrenome = faker.person.lastName()) { 
-    cy.preencher_campo(seletores.campoSobrenome, sobrenome); 
+  preencher_sobrenome(sobrenome = faker.person.lastName()) {
+    cy.preencher_campo(seletores.campoSobrenome, sobrenome);
   },
 
-  preencher_nome_empresa(empresa = faker.company.name()) { 
-    cy.preencher_campo(seletores.campoNomeEmpresa, empresa); 
+  preencher_nome_empresa(empresa = faker.company.name()) {
+    cy.preencher_campo(seletores.campoNomeEmpresa, empresa);
   },
 
-  preencher_email(email = faker.internet.email()) { 
-    cy.preencher_campo(seletores.campoEmail, email); 
+  preencher_email(email = faker.internet.email()) {
+    cy.preencher_campo(seletores.campoEmail, email);
   },
 
-  selecionar_pais(opcao = faker.number.int({ min: 1, max: 2 })) { 
+  selecionar_pais(opcao = faker.number.int({ min: 1, max: 2 })) {
     cy.get(seletores.selectPais)
       .should('be.visible')
-      .select(opcao); 
+      .select(opcao);
   },
 
-  selecionar_cidade(opcao = faker.number.int({ min: 1, max: 2 })) { 
+  selecionar_cidade(opcao = faker.number.int({ min: 1, max: 2 })) {
     cy.get(seletores.selectCidade)
       .should('be.visible')
-      .select(opcao); 
+      .select(opcao);
   },
 
-  preencher_cep(cep = faker.location.zipCode('#####-###')) { 
-    cy.preencher_campo(seletores.campoCep, cep); 
+  preencher_cep(cep = faker.location.zipCode('#####-###')) {
+    cy.preencher_campo(seletores.campoCep, cep);
   },
 
-  preencher_endereco(endereco = faker.location.streetAddress(true)) { 
-    cy.preencher_campo(seletores.campoEndereco, endereco); 
+  preencher_endereco(endereco = faker.location.streetAddress(true)) {
+    cy.preencher_campo(seletores.campoEndereco, endereco);
   },
 
-  preencher_mensagem(mensagem = faker.lorem.sentence()) { 
-    cy.preencher_campo(seletores.campoMensagem, mensagem); 
+  preencher_mensagem(mensagem = faker.lorem.sentence()) {
+    cy.preencher_campo(seletores.campoMensagem, mensagem);
   },
 
-  salvar_endereco() { 
+  salvar_endereco() {
     cy.get(seletores.botaoSalvarEndereco)
       .should('be.visible')
-      .click(); 
+      .click();
   },
 
-  confirmar_salvar_endereco(mensagem) { 
-    cy.get(seletores.tituloConfirmacaoEndereco)
-      .should("be.visible")
-      .and('have.text', mensagem); 
+  limpar_campo(nome_campo) {
+    return cy.get(seletores_campos[nome_campo]).clear()
   },
 
-  selecionar_pagamento(seletor) { 
-    cy.get(seletor)
+  obter_msg_endereco() {
+    return cy.get(seletores.tituloConfirmacaoEndereco)
+  },
+
+
+  selecionar_pagamento(formaPagamento) {
+    cy.get(tipos_pagamento[formaPagamento])
       .should('be.visible')
-      .check(); 
+      .click();
   },
 
-  realizar_checkout() { 
-    cy.contains('button', 'Place Order')
+  realizar_checkout() {
+    cy.contains('button', seletores.botaoPlaceOrderTexto)
       .should('be.visible')
-      .click(); 
+      .click();
   },
 
-  validar_msg_erro(seletor, mensagem) { 
-    cy.get(seletor).next()
-      .should('be.visible')
-      .and('contain.text', mensagem); 
+
+  obter_msg_erro_endereco(nome_campo) {
+    return cy.get(seletores_campos[nome_campo]).next()
   },
 
-  confirmar_sucesso_checkout(confirmacao1, confirmacao2) { 
-    cy.get(seletores.tituloSucessoCheckout)
-      .should('be.visible')
-      .and('have.text', confirmacao1); 
-    cy.get(seletores.subtituloSucessoCheckout)
-      .should('be.visible')
-      .and('have.text', confirmacao2); 
+  obter_msg_sucesso() {
+    return cy.get(seletores.tituloSucessoCheckout)
   },
 
-  validar_msg_erro_checkout(mensagemEsperada) { 
-    cy.get(seletores.containerPagamento)
-      .find(seletores.erroFirstNameCheckout)
-      .should('be.visible')
-      .and('have.text', mensagemEsperada); 
+  obter_msg_erro_checkout() {
+    return cy.get(seletores.containerPagamento).find(seletores.erroFirstNameCheckout)
   },
 
-  preencher_formulario_completo({ 
-    first_name = faker.person.firstName(), 
-    last_name = faker.person.lastName(), 
-    company_name = faker.company.name(), 
-    email = faker.internet.email(), 
-    country = faker.number.int({ min: 1, max: 2 }), 
-    city = faker.number.int({ min: 1, max: 2 }), 
-    zip = faker.location.zipCode('#####-###'), 
-    full_adress = faker.location.streetAddress(true), 
-    additional_notes = faker.lorem.sentence() 
+  preencher_formulario_completo({
+    first_name = faker.person.firstName(),
+    last_name = faker.person.lastName(),
+    company_name = faker.company.name(),
+    email = faker.internet.email(),
+    country = faker.number.int({ min: 1, max: 2 }),
+    city = faker.number.int({ min: 1, max: 2 }),
+    zip = faker.location.zipCode('#####-###'),
+    full_adress = faker.location.streetAddress(true),
+    additional_notes = faker.lorem.sentence()
   } = {}) {
     cy.preencher_campo(seletores.campoPrimeiroNome, first_name);
     cy.preencher_campo(seletores.campoSobrenome, last_name);
     cy.preencher_campo(seletores.campoNomeEmpresa, company_name);
     cy.preencher_campo(seletores.campoEmail, email);
-    
-    if (country !== '') { 
-      cy.get(seletores.selectPais).select(country); 
+
+    if (country !== '') {
+      cy.get(seletores.selectPais).select(country);
     }
-    if (city !== '') { 
-      cy.get(seletores.selectCidade).select(city); 
+    if (city !== '') {
+      cy.get(seletores.selectCidade).select(city);
     }
-    
+
     cy.preencher_campo(seletores.campoCep, zip);
     cy.preencher_campo(seletores.campoEndereco, full_adress);
     cy.preencher_campo(seletores.campoMensagem, additional_notes);
