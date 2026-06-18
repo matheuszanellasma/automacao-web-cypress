@@ -18,7 +18,7 @@ dispositivos.forEach((dispositivo) => {
 
             login_page.logar_usuario()
 
-            login_page.obter_alerta_sucesso()
+            login_page.alertaSucesso
                 .should('be.visible')
                 .and('contain.text', 'Login realizado');
 
@@ -34,13 +34,13 @@ dispositivos.forEach((dispositivo) => {
             login_page.marcar_lembrar_de_mim()
             login_page.logar()
 
-            login_page.obter_alerta_sucesso()
+            login_page.alertaSucesso
                 .should('be.visible')
                 .and('contain.text', 'Login realizado');
 
             login_page.acessar_login()
 
-            login_page.obter_email_preenchido()
+            login_page.emailPreenchido
                 .should('be.visible')
                 .and('have.value', email);
         })
@@ -60,7 +60,7 @@ dispositivos.forEach((dispositivo) => {
                 it(` Login mal sucedido com ${cenario.teste}`, () => {
                     login_page.logar_usuario({ email: cenario.email, senha: cenario.senha })
 
-                    login_page.obter_msg_erro()
+                    login_page.msgErro
                         .should('be.visible')
                         .and('have.text', cenario.msg_erro)
                 })
@@ -82,7 +82,7 @@ dispositivos.forEach((dispositivo) => {
                 cy.url()
                     .should('equal', 'https://www.automationpratice.com.br/register')
 
-                cadastro_page.obter_titulo_cadastro()
+                cadastro_page.titulo_cadastro
                     .should('have.text', 'Cadastro de usuário')
             })
         })

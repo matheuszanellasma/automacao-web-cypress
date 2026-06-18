@@ -20,9 +20,12 @@ const seletor_campo = {
 
 export default {
 
-  acessar_cadastro() { 
-    cy.visit(ROTA_CADASTRO);
-  },
+  get alerta_sucesso() { return cy.get(seletores.tituloSucesso); },
+  get titulo_cadastro() { return cy.get(seletores.tituloCadastro); },
+
+  obter_erro_do_campo: (nomeCampo) => cy.get(seletor_campo[nomeCampo]).next(),
+
+  acessar_cadastro() { cy.visit(ROTA_CADASTRO); },
 
   preencher_nome(nome = faker.person.fullName()) {
     cy.preencher_campo(seletores.campoNome, nome);
@@ -32,30 +35,18 @@ export default {
     cy.preencher_campo(seletores.campoEmail, email);
   },
 
-  preencher_senha(senha = faker.internet.password({ length: 6 })) {
+  preencher_senha(senha = faker.internet.password()) {
     cy.preencher_campo(seletores.campoSenha, senha);
   },
 
-  cadastrar() { 
-    cy.get(seletores.botaoRegistrar).click();
-  },
+  cadastrar() { cy.get(seletores.botaoRegistrar).click(); },
 
-  obter_alerta_sucesso() {
-    return cy.get(seletores.tituloSucesso);
-  },
-
-  obter_erro_do_campo(nomeCampo) {
-    return cy.get(seletor_campo[nomeCampo]).next();
-  },
-
-  obter_titulo_cadastro() {
-    return cy.get(seletores.tituloCadastro);
-  },
+  
 
   cadastrar_usuario({
     nome = faker.person.fullName(),
     email = faker.internet.email(),
-    senha = faker.internet.password({ length: 6 })
+    senha = faker.internet.password()
   } = {}) {
     cy.visit(ROTA_CADASTRO);
     cy.preencher_campo(seletores.campoNome, nome);

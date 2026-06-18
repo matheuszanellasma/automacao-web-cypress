@@ -13,7 +13,7 @@ dispositivos.forEach((dispositivo) => {
         it("Cadastro com credenciais válidas", () => {
             cadastro_usuario_page.cadastrar_usuario()
 
-            cadastro_usuario_page.obter_alerta_sucesso()
+            cadastro_usuario_page.alerta_sucesso
                 .should('be.visible')
                 .and('contain.text', 'Cadastro realizado');
 
