@@ -38,6 +38,14 @@ const seletores_campos = {
 };
 
 export default {
+
+  get msg_sucesso() { return cy.get(seletores.tituloSucessoCheckout) },
+  get msg_erro_checkout() { return cy.get(seletores.containerPagamento).find(seletores.erroFirstNameCheckout) },
+  get msg_endereco() { return cy.get(seletores.tituloConfirmacaoEndereco) },
+
+  obter_msg_erro_endereco: (nome_campo) => cy.get(seletores_campos[nome_campo]).next(),
+
+
   preencher_primeiro_nome(nome = faker.person.firstName()) {
     cy.preencher_campo(seletores.campoPrimeiroNome, nome);
   },
@@ -88,11 +96,6 @@ export default {
     return cy.get(seletores_campos[nome_campo]).clear()
   },
 
-  obter_msg_endereco() {
-    return cy.get(seletores.tituloConfirmacaoEndereco)
-  },
-
-
   selecionar_pagamento(formaPagamento) {
     cy.get(tipos_pagamento[formaPagamento])
       .should('be.visible')
@@ -103,19 +106,6 @@ export default {
     cy.contains('button', seletores.botaoPlaceOrderTexto)
       .should('be.visible')
       .click();
-  },
-
-
-  obter_msg_erro_endereco(nome_campo) {
-    return cy.get(seletores_campos[nome_campo]).next()
-  },
-
-  obter_msg_sucesso() {
-    return cy.get(seletores.tituloSucessoCheckout)
-  },
-
-  obter_msg_erro_checkout() {
-    return cy.get(seletores.containerPagamento).find(seletores.erroFirstNameCheckout)
   },
 
   preencher_formulario_completo({

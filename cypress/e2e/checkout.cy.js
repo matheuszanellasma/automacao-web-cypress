@@ -15,7 +15,7 @@ dispositivos.forEach((dispositivo) => {
                 checkout_page.preencher_formulario_completo()
                 checkout_page.salvar_endereco()
 
-                checkout_page.obter_msg_endereco()
+                checkout_page.msg_endereco
                     .should("be.visible")
                     .and('have.text', 'Billings Information registred with success!');
 
@@ -34,7 +34,7 @@ dispositivos.forEach((dispositivo) => {
                     checkout_page.selecionar_pagamento(cenario.payment)
                     checkout_page.realizar_checkout()
 
-                    checkout_page.obter_msg_sucesso()
+                    checkout_page.msg_sucesso
                         .should('be.visible')
                         .and('have.text', 'Order success!');
 
@@ -94,7 +94,7 @@ dispositivos.forEach((dispositivo) => {
             it("Falha ao gerar a ordem sem endereço salvo", () => {
                 checkout_page.realizar_checkout()
 
-                checkout_page.obter_msg_erro_checkout()
+                checkout_page.msg_erro_checkout
                     .should('be.visible')
                     .and('have.text', 'Preencha os dados de pagamento!');
             })
