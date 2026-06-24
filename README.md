@@ -107,6 +107,19 @@ Durante a fase de testes exploratórios e mapeamento, foram identificados os seg
 
 ---
 
+## 🛠️ Como Executar os Testes Localmente
+
+### Pré-requisitos: Node.js (versão 18 ou superior recomendada)
+
+### Passo a Passo (Configuração e Execução)
+```bash
+git clone https://github.com/matheuszanellasma/automacao-web-cypress.git
+cd automacao-web-cypress
+npm install
+npx cypress open
+```
+
+---
 ## 👤 Autor
 
 * **Matheus Koehler Zanella** - Quality Assurance Engineer
