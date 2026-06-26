@@ -29,7 +29,7 @@ Este projeto utiliza o **Cypress Cloud** para monitoramento e gravação das exe
 ## 📝 Planejamento e Casos de Teste Mapeados
 
 Como parte da estratégia de testes, foram levantados cenários divididos por componentes/histórias de usuário:
-
+ 
 ### 🔹 História 1 – Cabeçalho (Header)
 * **CT1:** Validação de redirecionamento - link “Aproveitar....”
 * **CT2:** Validação de redirecionamento - botão “Login”
