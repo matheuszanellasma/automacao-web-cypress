@@ -114,7 +114,7 @@ O projeto possui uma esteira automatizada de integração contínua implementada
 
 - **Gatilho:** A esteira é disparada automaticamente a cada evento de `push` realizado na branch `master`.
 - **Ação:** O pipeline executa os testes **Smoke** 
-- **Armazenamento:** O relatório é armazenado como artifact no GitHub por **30 dias**, permitindo análise dos resultados mesmo após a conclusão do pipeline.
+- **Armazenamento:** O relatório é armazenado como artifact no GitHub por **30 dias**
 
 ## 🛠️ Como Executar os Testes Localmente
 
