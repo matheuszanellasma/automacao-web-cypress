@@ -107,6 +107,14 @@ Durante a fase de testes exploratórios e mapeamento, foram identificados os seg
 
 ---
 
+## ⚙️ Integração Contínua (CI/CD)
+
+O projeto possui uma esteira automatizada de integração contínua implementada com **GitHub Actions**:
+
+- **Gatilho:** A esteira é disparada automaticamente a cada evento de `push` realizado na branch `master`.
+- **Ação:** O pipeline executa os testes **Smoke** 
+- **Armazenamento:** O relatório é armazenado como artifact no GitHub por **30 dias**, permitindo análise dos resultados mesmo após a conclusão do pipeline.
+
 ## 🛠️ Como Executar os Testes Localmente
 
 ### Pré-requisitos: Node.js (versão 18 ou superior recomendada)
