@@ -15,6 +15,7 @@ Este projeto utiliza o **Cypress Cloud** para monitoramento e gravação das exe
 * **Framework de Automação:** Cypress 
 * **Linguagem:** JavaScript / Node.js
 * **Padrão de Projeto:** Page Objects Pattern (PoP)
+* **Integração com IA:** Utilização do MCP do Playwright 
 
 ---
 
