@@ -5,7 +5,7 @@ import { dispositivos } from '../support/constants/dispositivos';
 
 dispositivos.forEach((dispositivo) => {
 
-    describe(`Testes de Smoke [${dispositivo.nome}]`, () => {
+    describe(`Testes Smoke [${dispositivo.nome}]`, () => {
 
         describe(`Testes de Cadastro`, () => {
             beforeEach(() => {
