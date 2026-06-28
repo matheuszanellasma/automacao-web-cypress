@@ -51,7 +51,7 @@ Como parte da estratégia de testes, foram levantados cenários divididos por co
 * **CT6:** Assinatura da newsletter com e-mail inválido
 
 ### 🔹 História 3 – Página de Login
-* **CT1:** Login com credenciais válidas
+* **CT1:** Login com credenciais válidas (smoke)
 * **CT2:** Validação de campos obrigatórios de login usando Matriz de Dados
 * **CT3:** Login mal sucedido com e-mail inválido
 * **CT4:** Login mal sucedido com senha curta (menos de 6 caracteres)
@@ -60,7 +60,7 @@ Como parte da estratégia de testes, foram levantados cenários divididos por co
 * **CT7:** Teste de redirecionamento - link “Ainda não tem conta?”
 
 ### 🔹 História 4 – Página de Cadastro
-* **CT1:** Cadastro com credenciais válidas
+* **CT1:** Cadastro com credenciais válidas (smoke)
 * **CT2:** Validação de campos obrigatórios de cadastro usando Matriz de Dados
 * **CT3:** Cadastro mal sucedido com nome curto (menos de 3 caracteres)
 * **CT4:** Cadastro mal sucedido com e-mail fora do padrão válido
@@ -68,10 +68,10 @@ Como parte da estratégia de testes, foram levantados cenários divididos por co
 * **CT6:** Teste de mascaramento da senha no cadastro
 
 ### 🔹 História 5 – Página de Checkout (Finalização de Compra)
-* **CT1:** Salvar endereço de faturamento com sucesso
-* **CT2:** Realizar checkout com sucesso via Direct Bank Transfer
-* **CT3:** Realizar checkout com sucesso via Mobile Banking
-* **CT4:** Realizar checkout com sucesso via Paypal
+* **CT1:** Salvar endereço de faturamento com sucesso (smoke)
+* **CT2:** Realizar checkout com sucesso via Direct Bank Transfer (smoke)
+* **CT3:** Realizar checkout com sucesso via Mobile Banking (smoke)
+* **CT4:** Realizar checkout com sucesso via Paypal (smoke)
 * **CT5:** Validação de campos obrigatórios vazios usando Matriz de Dados 
 * **CT6:** Validação de e-mail inválido sem caractere "@"
 * **CT7:** Validação de e-mail inválido sem provedor/domínio
