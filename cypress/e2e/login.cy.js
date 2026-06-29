@@ -27,25 +27,6 @@ dispositivos.forEach((dispositivo) => {
         })
 
 
-        it.skip("Login com 'Lembrar de mim' selecionado", () => {
-            const email = faker.internet.email()
-            login_page.preencher_email(email)
-            login_page.preencher_senha()
-            login_page.marcar_lembrar_de_mim()
-            login_page.logar()
-
-            login_page.alertaSucesso
-                .should('be.visible')
-                .and('contain.text', 'Login realizado');
-
-            login_page.acessar_login()
-
-            login_page.emailPreenchido
-                .should('be.visible')
-                .and('have.value', email);
-        })
-
-
         describe(`Validação de campos de login`, () => {
 
             const cenarios_login = [
