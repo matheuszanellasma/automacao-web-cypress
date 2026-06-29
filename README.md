@@ -1,6 +1,6 @@
 [![CI](https://github.com/matheuszanellasma/automacao-web-cypress/actions/workflows/push.yml/badge.svg)](https://github.com/matheuszanellasma/automacao-web-cypress/actions)
 
-# Projeto de Automação de Testes Web - QaZando Shop 🎯
+# Projeto de Automação de Testes Web - QaZando Shop 🎯 
 
 Este repositório contém o projeto de automação de testes focado na interface web do e-commerce de teste **QaZando Shop**. O objetivo deste projeto é garantir a qualidade, estabilidade e o funcionamento correto do cabeçalho e rodapé da página e das páginas de Login, Cadastro e Checkout
 
