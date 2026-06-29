@@ -23,7 +23,8 @@ jobs:
       - name: Run Cypress smoke tests
         uses: cypress-io/github-action@v7
         with:
-          command: npx cypress run --record --expose grepTags=@smoke,grepFilterSpecs=true,grepOmitFiltered=true
+          browser: chrome
+          spec: cypress/e2e/smoke.cy.js
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
