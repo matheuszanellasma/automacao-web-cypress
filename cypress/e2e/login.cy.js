@@ -14,7 +14,7 @@ dispositivos.forEach((dispositivo) => {
             cy.iniciar_sessao(dispositivo.preset, '/login')
         })
 
-        it("Login com credenciais válidas", () => {
+        it("Login com credenciais válidas", {tags: ['@smoke']} , () => {
 
             login_page.logar_usuario()
 

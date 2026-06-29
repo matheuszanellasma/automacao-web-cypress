@@ -11,7 +11,7 @@ dispositivos.forEach((dispositivo) => {
         })
 
         describe(`Casos de sucesso`, () => {
-            it("Salvar endereço com sucesso", () => {
+            it("Salvar endereço com sucesso", {tags: ['@smoke']} , () => {
                 checkout_page.preencher_formulario_completo()
                 checkout_page.salvar_endereco()
 
@@ -28,7 +28,7 @@ dispositivos.forEach((dispositivo) => {
             ]
 
             cenarios_checkout_sucesso.forEach((cenario) => {
-                it(`Sucesso com pagamento ${cenario.payment}`, () => {
+                it(`Sucesso com pagamento ${cenario.payment}`, {tags: ['@smoke']} , () => {
                     checkout_page.preencher_formulario_completo()
                     checkout_page.salvar_endereco()
                     checkout_page.selecionar_pagamento(cenario.payment)
