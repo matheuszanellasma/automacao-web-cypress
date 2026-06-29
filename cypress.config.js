@@ -1,4 +1,6 @@
 const { defineConfig } = require("cypress");
+const { plugin: cypressGrepPlugin } = require("@cypress/grep/plugin");
+
 
 module.exports = defineConfig({
   reporter: 'mochawesome',
@@ -7,7 +9,9 @@ module.exports = defineConfig({
   e2e: {
     baseUrl : 'https://www.automationpratice.com.br',
     setupNodeEvents(on, config) {
-      // implement node event listeners here
+      cypressGrepPlugin(config);
+
+      return config;
     },
   },
 });

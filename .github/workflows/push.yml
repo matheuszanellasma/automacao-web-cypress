@@ -21,10 +21,9 @@ jobs:
         run: npm ci
 
       - name: Run Cypress smoke tests
-        uses: cypress-io/github-action@v6
+        uses: cypress-io/github-action@v7
         with:
-          browser: chrome
-          spec: cypress/e2e/smoke.cy.js
+          command: npx cypress run --expose grepTags=@smoke,grepFilterSpecs=true,grepOmitFiltered=true
 
       - name: Upload Cypress Report
         if: always()

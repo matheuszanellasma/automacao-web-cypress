@@ -15,6 +15,9 @@
 
 // Import commands.js using ES2015 syntax:
 import './commands'
+import { register } from '@cypress/grep'
+
+register()
 
 beforeEach(() => {
     cy.clearCookies();

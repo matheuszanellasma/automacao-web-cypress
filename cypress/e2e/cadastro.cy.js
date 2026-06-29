@@ -10,7 +10,7 @@ dispositivos.forEach((dispositivo) => {
             cy.iniciar_sessao(dispositivo.preset, '/register')
         })
 
-        it("Cadastro com credenciais válidas", () => {
+        it("Cadastro com credenciais válidas", {tags: ['@smoke']} ,() => {
             cadastro_usuario_page.cadastrar_usuario()
 
             cadastro_usuario_page.alerta_sucesso
